@@ -17,6 +17,9 @@ __pycache__/
 # secrets
 secrets.py
 
+notebook/
+notebook
+
 # Distribution / packaging
 .Python
 build/

@@ -15,7 +15,7 @@ import argparse
 from src.page_contents import content_1, content_2, content_3
 from src.layout import layout
 from src.get_data import get_crypto_data
-
+from src.graphs import line
 
 config = {
     'bg-primary': '#292b2d'
@@ -61,17 +61,30 @@ def toggle_collapse(input1, input2, input3):
         return content_2
     if btn_df.idxmax(axis=1).values == "input3":
         return content_3
-		
-# DataTable
+
+# store data
 @app.callback(
-    Output("crypto-data", "children"),
+    Output("store-data", "data"),
     [Input("select-crypto", "value")]
 )
-def crypto_datatable(crypto_symbol):
+def store_data(crypto_symbol):
 
     # make time-param be an input as well, add later
     df = get_crypto_data(crypto_symbol, '1d', save = False)
-            
+
+    return df.to_json()
+
+# datatable
+@app.callback(
+    Output("crypto-data", "children"),
+    [Input("store-data", "data")]
+)
+def crypto_datatable(data):
+
+    # make time-param be an input as well, add later
+    # df = get_crypto_data(crypto_symbol, '1d', save = False)
+    df = pd.read_json(data)
+
     return dash_table.DataTable(
                 data=df.to_dict('records'),
                 id='table',
@@ -79,8 +92,7 @@ def crypto_datatable(crypto_symbol):
                     {'name': i, 
                     'id': i,
                     'selectable' : True,
-                    'hideable' : True,
-                    'selectable': True}
+                    }
                     for i in df.columns
                     ],
                 sort_action="native",
@@ -106,7 +118,20 @@ def crypto_datatable(crypto_symbol):
                             'font-family':'sans-serif'
                             }
                 )
-									
+
+# line graph
+@app.callback(
+    Output("line-graph", "figure"),
+    [Input("select-col", "value"),
+    Input('store-data', 'data')]
+)
+def line_graph(col, data):
+
+    df = pd.read_json(data)
+
+    fig = line(df, col)
+
+    return fig
 
 
 

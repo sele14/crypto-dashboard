@@ -30,9 +30,10 @@ main {
     padding: 5px;
     margin: 5px;
     color: var(--text-color);
-    font-size: large;
-    animation-duration: 1s;
-  }
+    font-size: larger;
+    font-weight: bold;
+    transition: color 0.4s;
+}
 
 
 .link-text:hover {
@@ -41,6 +42,7 @@ main {
 
 .sidebar {
     /* box-shadow: 4px 4px 4px rgb(0, 6, 20); */
+    position : fixed;
 }
 
 .data-table{

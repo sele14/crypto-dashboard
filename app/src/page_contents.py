@@ -7,6 +7,7 @@ import dash_table
 # Other libs
 import pandas as pd
 
+from src.configs import config
 
 # the content of each page for sidebar
 content_1 = html.Div([
@@ -32,9 +33,39 @@ content_1 = html.Div([
     # datatable row
     html.Div([
         html.Div(id='crypto-data', className='eight columns data-table'),
-    ], className='row')
+    ], className='row'),
+    
 ])
 ])
 
-content_2 = html.Div('content 2')
+content_2 = html.Div([
+    html.Div([
+        dcc.RadioItems(
+            id='select-col',
+            options=[
+                {'label': 'Open', 'value': 'Open'},
+                {'label': 'High', 'value': 'High'},
+                {'label': 'Low', 'value': 'Low'},
+                {'label': 'Close', 'value': 'Close'},
+                {'label': 'Volume', 'value': 'Volume'},
+            ],
+            inputStyle={
+                "margin-right": "10px",
+                "margin-left": "10px"
+                },
+            value='Open',
+        )
+    ],className='row'),
+    html.Div([
+        dcc.Graph(id='line-graph',
+                    figure={
+                        'layout': {
+                        'plot_bgcolor': config['bg-primary'],
+                        'paper_bgcolor': config['bg-primary'],
+                    }
+                }
+        )
+    ], className='row line-gr')
+
+])
 content_3 = html.Div('content 3')

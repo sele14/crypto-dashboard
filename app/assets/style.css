@@ -48,6 +48,9 @@ main {
 .data-table{
     padding: 1rem;
 }
+.line-gr {
+    background-color: var(--bg-primary);
+}
 
 
 

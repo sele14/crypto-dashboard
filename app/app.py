@@ -17,9 +17,7 @@ from src.layout import layout
 from src.get_data import get_crypto_data
 from src.graphs import line
 
-config = {
-    'bg-primary': '#292b2d'
-}
+from src.configs import config
 
 external_stylesheets = [
 {
@@ -128,11 +126,9 @@ def crypto_datatable(data):
 def line_graph(col, data):
 
     df = pd.read_json(data)
-
     fig = line(df, col)
 
     return fig
-
 
 
 if __name__ == '__main__':

@@ -57,14 +57,17 @@ content_2 = html.Div([
         )
     ],className='row'),
     html.Div([
-        dcc.Graph(id='line-graph',
-                    figure={
-                        'layout': {
-                        'plot_bgcolor': config['bg-primary'],
-                        'paper_bgcolor': config['bg-primary'],
+        html.Div([
+            dcc.Graph(id='line-graph',
+                        figure={
+                            'layout': {
+                            'plot_bgcolor': config['bg-primary'],
+                            'paper_bgcolor': config['bg-primary'],
+                        }
                     }
-                }
-        )
+            )
+        ], className='nine columns'),
+
     ], className='row line-gr')
 
 ])

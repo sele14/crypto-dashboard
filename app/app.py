@@ -14,9 +14,9 @@ import argparse
 # Import helper functions
 from src.page_contents import content_1, content_2, content_3
 from src.layout import layout
-from src.get_data import get_crypto_data
-from src.graphs import line
-
+# from src.get_data import get_crypto_data
+from src.graphs import line, greeks_plot
+from src.clean_data import read_input, filter_data
 from src.configs import config
 
 external_stylesheets = [
@@ -127,6 +127,23 @@ def line_graph(col, data):
 
     df = pd.read_json(data)
     fig = line(df, col)
+
+    return fig
+
+# line graph of greeks
+@app.callback(
+    Output("line-graph-greeks", "figure"),
+    [Input("select-col-2", "value"),
+    Input('expiry', 'value')]
+)
+def line_graph_greek(cols, expiry):
+
+    # choose between expiry 30.0,  60.0,  90.0, 120.0, 150.0, 180.0
+    df = read_input()
+
+    data_selected = filter_data(df, "ExpiryTime", expiry)
+
+    fig = greeks_plot(data_selected, cols)
 
     return fig
 

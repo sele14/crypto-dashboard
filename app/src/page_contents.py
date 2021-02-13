@@ -9,6 +9,7 @@ import pandas as pd
 
 from src.configs import config
 
+
 # the content of each page for sidebar
 content_1 = html.Div([
     html.Div([
@@ -55,7 +56,7 @@ content_2 = html.Div([
                 },
             value='Open',
         )
-    ],className='row'),
+    ], className='row'),
     html.Div([
         html.Div([
             dcc.Graph(id='line-graph',
@@ -71,4 +72,59 @@ content_2 = html.Div([
     ], className='row line-gr')
 
 ])
-content_3 = html.Div('content 3')
+
+content_3 = html.Div([
+    html.Div([
+        html.Div([
+            html.Div("Select columns to plot:"),
+            dcc.Dropdown(
+                id='select-col-2',
+                options=[
+                    {'label': 'Forward', 'value': 'Forward'},
+                    {'label': 'Alpha', 'value': 'Alpha'},
+                    {'label': 'Volvol', 'value': 'Volvol'},
+                    {'label': 'Rho', 'value': 'Rho'},
+                    {'label': 'Beta', 'value': 'Beta'},
+                ],
+                value='Rho',
+                multi=True
+            )
+        ], className='four columns'),
+
+        html.Div([
+            html.Div("Select an expiry:"),
+            dcc.Dropdown(
+                id='expiry',
+                options=[
+                    {'label': 30.0, 'value': 30.0},
+                    {'label': 60.0, 'value': 60.0},
+                    {'label': 90.0, 'value': 90.0},
+                    {'label': 120.0, 'value': 120.0},
+                    {'label': 150.0, 'value': 150.0},
+                    {'label': 180.0, 'value': 180.0},
+                ],
+
+                value=30,
+                clearable=False,
+
+            )
+        ], className='four columns'),
+    ], className='row'),
+
+    # line plot
+    html.Div([
+        html.Div([
+            dcc.Graph(id='line-graph-greeks',
+                        figure={
+                            'layout': {
+                            'plot_bgcolor': config['bg-primary'],
+                            'paper_bgcolor': config['bg-primary'],
+                        }
+                    }
+            )
+
+        ],className='eleven columns')
+
+    ], className='row line-gr')
+
+], className='content-3')

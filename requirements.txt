@@ -15,7 +15,7 @@ dash-renderer==1.9.0
 dash-table==4.11.2
 dash-trich-components==0.0.8
 dateparser==1.0.0
-Flask==1.1.2
+Flask==2.2.5
 Flask-Compress==1.8.0
 future==0.18.2
 hyperlink==21.0.0
